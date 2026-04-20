@@ -58,17 +58,17 @@ img{max-width:100%;display:block}
 /* ── NAV ── */
 .nav-wrap{
   position:fixed;top:0;left:0;right:0;z-index:200;
-  transition:all .35s ease;height:72px;
+  transition:all .35s ease;height:92px;
   display:flex;align-items:center;padding:0 5vw;
   justify-content:space-between;
 }
 .nav-wrap.scrolled{background:rgba(255,255,255,.97);backdrop-filter:blur(20px);box-shadow:0 2px 20px rgba(0,165,200,.1);border-bottom:1px solid var(--border)}
-.nav-logo img{height:52px;width:52px;object-fit:contain}
-.nav-links{display:flex;align-items:center;gap:4px}
+.nav-logo img{height:92px;width:92px;object-fit:contain}
+.nav-links{display:flex;align-items:center;gap:6px}
 .nav-link{
   background:none;border:none;cursor:pointer;
-  font-family:var(--font-h);font-size:13px;font-weight:600;
-  color:var(--teal-dp);padding:7px 13px;border-radius:20px;
+  font-family:var(--font-h);font-size:16px;font-weight:600;
+  color:var(--teal-dp);padding:8px 15px;border-radius:20px;
   text-decoration:none;transition:all .2s;white-space:nowrap;
 }
 .nav-link:hover,.nav-link.active{background:var(--teal-lt);color:var(--teal-dk)}
@@ -113,7 +113,7 @@ img{max-width:100%;display:block}
   object-fit:cover;opacity:1;
 }
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,95,122,.3) 0%,rgba(0,60,80,.1) 40%,rgba(0,40,60,.7) 100%)}
-.hero-content{position:relative;z-index:2;padding:100px 7vw 0}
+.hero-content{position:relative;z-index:2;padding:120px 7vw 0}
 .hero-tag{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
@@ -741,7 +741,7 @@ const Nav = ({ lang, setLang, t, active }) => {
     <>
       <nav className={`nav-wrap${scrolled?' scrolled':''}`}>
         <a href="#hero" className="nav-logo">
-          <img src="Logo/Logo%20transparent.png" alt="Cap Caraibes" style={{height:52,width:52,objectFit:'contain'}}/>
+          <img src="Logo/Logo%20transparent.png" alt="Cap Caraibes" style={{height:92,width:92,objectFit:'contain'}}/>
         </a>
         <div className="nav-links">
           {links.map(l=>(
@@ -1181,7 +1181,7 @@ const Footer = ({ t }) => (
          style={{display:'flex',alignItems:'center',gap:8,textDecoration:'none',opacity:.55,transition:'opacity .2s'}}
          onMouseOver={e=>e.currentTarget.style.opacity='1'}
          onMouseOut={e=>e.currentTarget.style.opacity='.55'}>
-        <img src="Logo/Laurier%20Web%20Logo.png" alt="Laurier Web" style={{height:32,width:'auto',filter:'brightness(0) invert(1)'}}/>
+        <img src="Logo/Laurier%20Web%20Logo.png" alt="Laurier Web" style={{height:72,width:'auto',filter:'brightness(0) invert(1)'}}/>
         <span style={{fontFamily:'var(--font-b)',fontSize:11,color:'rgba(255,255,255,.7)',letterSpacing:'.06em'}}>Créé par Laurier Web</span>
       </a>
     </div>
