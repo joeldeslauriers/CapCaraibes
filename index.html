@@ -346,7 +346,7 @@ img{max-width:100%;display:block}
 }
 .snorkel-card:hover{border-color:var(--teal);box-shadow:0 6px 24px rgba(0,165,200,.12)}
 .snorkel-card.featured{background:var(--teal-dp);border-color:transparent}
-.snorkel-price-big{font-family:var(--font-h);font-size:48px;font-weight:800;line-height:1;margin-bottom:4px}
+.snorkel-price-big{font-family:var(--font-h);font-size:clamp(26px,5vw,40px);font-weight:800;line-height:1;margin-bottom:4px;white-space:nowrap}
 .snorkel-card .snorkel-price-big{color:var(--teal-dp)}
 .snorkel-card.featured .snorkel-price-big{color:#7DDDF5}
 
@@ -366,7 +366,7 @@ img{max-width:100%;display:block}
   border-radius:20px;padding:32px 28px;
 }
 .sunset-card.featured{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
-.sunset-price{font-family:var(--font-h);font-size:44px;font-weight:800;color:#7DDDF5;line-height:1;margin-bottom:6px}
+.sunset-price{font-family:var(--font-h);font-size:clamp(22px,5vw,40px);font-weight:800;color:#7DDDF5;line-height:1;word-break:break-word}
 
 /* ── PRICING ── */
 .pricing-img-wrap{
@@ -385,7 +385,7 @@ img{max-width:100%;display:block}
 .contact-info-card:hover{border-color:var(--teal);box-shadow:0 4px 16px rgba(0,165,200,.1)}
 .contact-info-label{font-family:var(--font-b);font-size:11px;color:var(--text-sec);text-transform:uppercase;letter-spacing:.07em;font-weight:500}
 .contact-info-val{font-family:var(--font-b);font-size:14px;color:var(--teal-dp);font-weight:500}
-.hosts-photo{width:100%;border-radius:20px;object-fit:cover}
+.hosts-photo{width:100%;border-radius:20px;display:block;max-height:480px;object-fit:cover;object-position:top center}
 .form-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-grid-3{display:grid;grid-template-columns:1fr 2fr;gap:14px}
 .field-label{font-family:var(--font-b);font-size:12px;color:var(--text-sec);text-transform:uppercase;letter-spacing:.08em;display:block;margin-bottom:6px;font-weight:500}
@@ -994,6 +994,12 @@ const Catamaran = ({ t }) => {
   );
 };
 
+// Split "1 000 USD" → {num:"1 000", cur:"USD"}, text-only → {num:price, cur:""}
+const splitPrice = p => {
+  const m = p.match(/^([\d\s]+)\s+([A-Z$€£]+.*)$/);
+  return m ? {num:m[1].trim(), cur:m[2].trim()} : {num:p, cur:''};
+};
+
 // ── SNORKELING ────────────────────────────────────────────────
 const Snorkel = ({ t }) => {
   const ts = t.snorkel;
@@ -1006,7 +1012,12 @@ const Snorkel = ({ t }) => {
         {ts.options.map((opt,i)=>(
           <div key={i} className={`snorkel-card${opt.featured?' featured':''}`}>
             <div style={{fontFamily:'var(--font-h)',fontSize:13,fontWeight:700,letterSpacing:'.06em',textTransform:'uppercase',color:opt.featured?'rgba(255,255,255,.6)':'var(--text-sec)',marginBottom:20}}>{opt.name}</div>
-            <div className="snorkel-price-big" style={{color:opt.featured?'#7DDDF5':'var(--teal-dp)'}}>{opt.price}</div>
+            {(()=>{const {num,cur}=splitPrice(opt.price);const c=opt.featured?'#7DDDF5':'var(--teal-dp)';return(
+              <div style={{display:'flex',alignItems:'baseline',gap:8,marginBottom:4,flexWrap:'nowrap'}}>
+                <span className="snorkel-price-big" style={{color:c}}>{num}</span>
+                {cur&&<span style={{fontFamily:'var(--font-h)',fontSize:'clamp(14px,2.5vw,20px)',fontWeight:700,color:c,lineHeight:1,flexShrink:0}}>{cur}</span>}
+              </div>
+            );})()}
             <div style={{fontFamily:'var(--font-b)',fontSize:13,color:opt.featured?'rgba(255,255,255,.5)':'var(--text-sec)',marginBottom:20,fontWeight:300}}>
               ⏱ {opt.duration} &nbsp;·&nbsp; 👥 {opt.people} &nbsp;·&nbsp; 🕗 {opt.depart}
             </div>
@@ -1113,8 +1124,15 @@ const Sunset = ({ t }) => {
           <div key={i} className={`sunset-card${opt.featured?' featured':''}`}>
             <div style={{fontFamily:'var(--font-h)',fontSize:13,fontWeight:700,letterSpacing:'.06em',textTransform:'uppercase',color:'rgba(255,255,255,.6)',marginBottom:4}}>{opt.name}</div>
             {opt.partner && <div style={{fontFamily:'var(--font-b)',fontSize:12,color:'#7DDDF5',marginBottom:16}}>{opt.partner}</div>}
-            <div className="sunset-price">{opt.price}</div>
-            {opt.unit && <div style={{fontFamily:'var(--font-b)',fontSize:13,color:'rgba(255,255,255,.5)',fontWeight:300,marginBottom:16}}>{opt.unit}</div>}
+            {(()=>{const {num,cur}=splitPrice(opt.price);const isText=!cur&&!/^\d/.test(num);return isText?(
+              <div style={{fontFamily:'var(--font-h)',fontSize:'clamp(16px,3.5vw,24px)',fontWeight:700,color:'#7DDDF5',wordBreak:'break-word',overflowWrap:'anywhere',marginBottom:16,lineHeight:1.2}}>{opt.price}</div>
+            ):(
+              <div style={{display:'flex',alignItems:'baseline',flexWrap:'wrap',gap:8,marginBottom:16}}>
+                <span className="sunset-price">{num}</span>
+                {cur&&<span style={{fontFamily:'var(--font-h)',fontSize:'clamp(14px,2.5vw,20px)',fontWeight:700,color:'#7DDDF5',lineHeight:1,flexShrink:0}}>{cur}</span>}
+                {opt.unit&&<span style={{fontFamily:'var(--font-b)',fontSize:13,color:'rgba(255,255,255,.5)',fontWeight:300,flexShrink:0}}>{opt.unit}</span>}
+              </div>
+            );})()}
             <div style={{fontFamily:'var(--font-b)',fontSize:13,color:'rgba(255,255,255,.55)',marginBottom:16,fontWeight:300}}>
               ⏱ {opt.duration} &nbsp;·&nbsp; 👥 {opt.people}
             </div>
@@ -1194,7 +1212,7 @@ const Contact = ({ t }) => {
             src="Assets/Images/Contact-Vos-hotes-_934-x-1%E2%80%AF113_-768x915.jpg"
             alt="Vos hôtes Cap Caraibes"
             className="hosts-photo"
-            style={{marginBottom:24,height:320,objectFit:'cover'}}
+            style={{marginBottom:24}}
           />
           <div style={{display:'flex',flexDirection:'column',gap:10}}>
             {[
