@@ -211,7 +211,17 @@ img{max-width:100%;display:block}
   pointer-events:none;touch-action:none;
 }
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,95,122,.3) 0%,rgba(0,60,80,.1) 40%,rgba(0,40,60,.7) 100%)}
-.hero-content{position:relative;z-index:2;padding:120px 7vw 0}
+.hero-content{position:relative;z-index:2;padding:0 7vw 0}
+.hero-sub-card{
+  background:rgba(0,18,30,0.55);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,0.13);
+  border-radius:18px;
+  padding:16px 20px;
+  display:inline-block;
+  margin-bottom:28px;
+}
 .hero-tag{
   display:inline-flex;align-items:center;gap:8px;
   background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
@@ -886,7 +896,9 @@ const Hero = ({ t }) => (
       <h1 className="hero-h1 anim-1">
         {t.hero.h1a}<br/><span>{t.hero.h1b}</span>
       </h1>
-      <p className="hero-sub anim-2">{t.hero.sub}</p>
+      <div className="hero-sub-card anim-2">
+        <p className="hero-sub" style={{marginBottom:0}}>{t.hero.sub}</p>
+      </div>
       <div className="hero-tag anim-3" style={{marginBottom:32}}>
         <div style={{width:7,height:7,borderRadius:'50%',background:'#7DDDF5'}}/>
         <span>{t.hero.tag}</span>
