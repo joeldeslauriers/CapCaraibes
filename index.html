@@ -347,6 +347,7 @@ img{max-width:100%;display:block}
 .snorkel-card:hover{border-color:var(--teal);box-shadow:0 6px 24px rgba(0,165,200,.12)}
 .snorkel-card.featured{background:var(--teal-dp);border-color:transparent}
 .snorkel-price-big{font-family:var(--font-h);font-size:clamp(26px,5vw,40px);font-weight:800;line-height:1;margin-bottom:4px;white-space:nowrap}
+.price-cur{font-family:var(--font-h);font-size:18px;font-weight:700;line-height:1;flex-shrink:0}
 .snorkel-card .snorkel-price-big{color:var(--teal-dp)}
 .snorkel-card.featured .snorkel-price-big{color:#7DDDF5}
 
@@ -953,10 +954,13 @@ const Catamaran = ({ t }) => {
           <h3 className="dest-h3">{dest.name}</h3>
           <p className="dest-desc">{dest.desc}</p>
           <div style={{background:'white',border:'1px solid var(--border)',borderRadius:16,padding:'20px 24px',display:'flex',flexDirection:'column',gap:6}}>
-            <div style={{display:'flex',alignItems:'flex-end',gap:8}}>
-              <span style={{fontFamily:'var(--font-h)',fontSize:44,fontWeight:800,color:'var(--teal-dp)',lineHeight:1}}>{dest.price}</span>
-              <span style={{fontFamily:'var(--font-b)',fontSize:14,color:'var(--text-sec)',paddingBottom:6,fontWeight:300}}>{dest.unit}</span>
-            </div>
+            {(()=>{const {num,cur}=splitPrice(dest.price);return(
+              <div style={{display:'flex',alignItems:'baseline',gap:8,flexWrap:'wrap'}}>
+                <span style={{fontFamily:'var(--font-h)',fontSize:44,fontWeight:800,color:'var(--teal-dp)',lineHeight:1}}>{num}</span>
+                {cur&&<span className="price-cur" style={{color:'var(--teal-dp)'}}>{cur}</span>}
+                <span style={{fontFamily:'var(--font-b)',fontSize:13,color:'var(--text-sec)',fontWeight:300}}>{dest.unit}</span>
+              </div>
+            );})()}
             <p style={{fontFamily:'var(--font-b)',fontSize:12,color:'var(--text-sec)',fontWeight:300}}>{dest.note}</p>
             <p style={{fontFamily:'var(--font-b)',fontSize:12,color:'var(--text-sec)',fontWeight:300,marginTop:4}}>{tc.group}</p>
             <a href="#contact" className="btn-primary" style={{textAlign:'center',marginTop:8}}>
@@ -1015,7 +1019,7 @@ const Snorkel = ({ t }) => {
             {(()=>{const {num,cur}=splitPrice(opt.price);const c=opt.featured?'#7DDDF5':'var(--teal-dp)';return(
               <div style={{display:'flex',alignItems:'baseline',gap:8,marginBottom:4,flexWrap:'nowrap'}}>
                 <span className="snorkel-price-big" style={{color:c}}>{num}</span>
-                {cur&&<span style={{fontFamily:'var(--font-h)',fontSize:'clamp(14px,2.5vw,20px)',fontWeight:700,color:c,lineHeight:1,flexShrink:0}}>{cur}</span>}
+                {cur&&<span className="price-cur" style={{color:c}}>{cur}</span>}
               </div>
             );})()}
             <div style={{fontFamily:'var(--font-b)',fontSize:13,color:opt.featured?'rgba(255,255,255,.5)':'var(--text-sec)',marginBottom:20,fontWeight:300}}>
@@ -1064,9 +1068,12 @@ const Peche = ({ t }) => {
         </div>
         <div>
           <div style={{background:'white',border:'1px solid var(--border)',borderRadius:20,padding:'32px 28px',marginBottom:20}}>
-            <div style={{display:'flex',alignItems:'flex-end',gap:8,marginBottom:6}}>
-              <span style={{fontFamily:'var(--font-h)',fontSize:54,fontWeight:800,color:'var(--teal-dp)',lineHeight:1}}>{tp.price}</span>
-            </div>
+            {(()=>{const {num,cur}=splitPrice(tp.price);return(
+              <div style={{display:'flex',alignItems:'baseline',gap:8,marginBottom:6,flexWrap:'wrap'}}>
+                <span style={{fontFamily:'var(--font-h)',fontSize:54,fontWeight:800,color:'var(--teal-dp)',lineHeight:1}}>{num}</span>
+                {cur&&<span className="price-cur" style={{color:'var(--teal-dp)'}}>{cur}</span>}
+              </div>
+            );})()}
             <div style={{fontFamily:'var(--font-b)',fontSize:13,color:'var(--text-sec)',fontWeight:300,marginBottom:24}}>👥 {tp.people}</div>
             <ul style={{listStyle:'none',display:'flex',flexDirection:'column',gap:10,marginBottom:24}}>
               {tp.included.map((inc,i)=>(
@@ -1129,7 +1136,7 @@ const Sunset = ({ t }) => {
             ):(
               <div style={{display:'flex',alignItems:'baseline',flexWrap:'wrap',gap:8,marginBottom:16}}>
                 <span className="sunset-price">{num}</span>
-                {cur&&<span style={{fontFamily:'var(--font-h)',fontSize:'clamp(14px,2.5vw,20px)',fontWeight:700,color:'#7DDDF5',lineHeight:1,flexShrink:0}}>{cur}</span>}
+                {cur&&<span className="price-cur" style={{color:'#7DDDF5'}}>{cur}</span>}
                 {opt.unit&&<span style={{fontFamily:'var(--font-b)',fontSize:13,color:'rgba(255,255,255,.5)',fontWeight:300,flexShrink:0}}>{opt.unit}</span>}
               </div>
             );})()}
