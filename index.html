@@ -43,8 +43,8 @@
   --font-b:  'DM Sans', sans-serif;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:var(--font-b);background:var(--white);color:var(--text);overflow-x:hidden}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--font-b);background:var(--white);color:var(--text);overflow-x:hidden;overscroll-behavior-x:none}
 img{max-width:100%;display:block}
 
 /* ── ANIMATIONS ── */
@@ -162,18 +162,38 @@ img{max-width:100%;display:block}
 .nav-cta:hover{background:var(--teal-dk)}
 
 /* ── MOBILE ── */
-.nav-hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px}
+.nav-hamburger{
+  display:none;background:rgba(0,25,38,.65);border:1px solid rgba(0,165,200,.45);
+  cursor:pointer;padding:8px;border-radius:12px;
+  backdrop-filter:blur(12px);transition:background .2s;
+}
+.nav-hamburger:hover{background:rgba(0,165,200,.3)}
 .nav-mobile-menu{
   display:none;position:fixed;top:92px;left:0;right:0;
-  background:rgba(255,255,255,.97);backdrop-filter:blur(20px);
-  border-bottom:2px solid var(--border);padding:16px 5vw 24px;
-  z-index:199;flex-direction:column;gap:4px;
+  background:rgba(0,18,28,.94);backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(0,165,200,.3);
+  padding:20px 6vw 28px;z-index:199;flex-direction:column;gap:6px;
 }
 .nav-mobile-menu.open{display:flex}
+.nav-mobile-menu .nav-link{
+  color:rgba(255,255,255,.9) !important;
+  font-size:17px;padding:12px 18px;border-radius:16px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.nav-mobile-menu .nav-link:hover,.nav-mobile-menu .nav-link.active{
+  background:rgba(0,165,200,.35) !important;
+  color:white !important;
+}
+.nav-mobile-menu .lang-btn{
+  color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.2);
+}
+.nav-mobile-menu .nav-cta{margin-left:0;display:block;text-align:center;margin-top:8px}
 
 @media(max-width:900px){
   .nav-links{display:none}
   .nav-hamburger{display:block}
+  .nav-cta{display:none}
 }
 
 /* ── HERO ── */
@@ -188,6 +208,7 @@ img{max-width:100%;display:block}
 .hero-bg video{
   position:absolute;inset:0;width:100%;height:100%;
   object-fit:cover;opacity:1;
+  pointer-events:none;touch-action:none;
 }
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,95,122,.3) 0%,rgba(0,60,80,.1) 40%,rgba(0,40,60,.7) 100%)}
 .hero-content{position:relative;z-index:2;padding:120px 7vw 0}
@@ -836,7 +857,7 @@ const Nav = ({ lang, setLang, t, active }) => {
           ))}
           <a href="#contact" className="nav-cta">{t.nav.book}</a>
           <button className="nav-hamburger" onClick={()=>setMenuOpen(o=>!o)} aria-label="Menu">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={scrolled?"var(--teal-dp)":"var(--teal-dp)"} strokeWidth="2" strokeLinecap="round">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round">
               {menuOpen?<><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></>:<><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></>}
             </svg>
           </button>
