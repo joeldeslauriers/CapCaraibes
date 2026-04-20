@@ -210,26 +210,35 @@ img{max-width:100%;display:block}
   object-fit:cover;opacity:1;
   pointer-events:none;touch-action:none;
 }
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,95,122,.3) 0%,rgba(0,60,80,.1) 40%,rgba(0,40,60,.7) 100%)}
-.hero-content{position:relative;z-index:2;padding:120px 7vw 0}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,95,122,.15) 0%,rgba(0,60,80,.05) 35%,rgba(0,30,50,.65) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 7vw 0}
+.hero-card{
+  background:rgba(0,18,30,0.58);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,0.14);
+  border-radius:22px;
+  padding:28px 28px 32px;
+  max-width:580px;
+}
 .hero-tag{
   display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);
-  border-radius:20px;padding:6px 16px;margin-bottom:22px;
+  background:rgba(0,165,200,.25);border:1px solid rgba(0,165,200,.5);
+  border-radius:20px;padding:6px 16px;margin-bottom:20px;
 }
-.hero-tag span{font-family:var(--font-b);font-size:12px;color:rgba(255,255,255,.9);letter-spacing:.06em;font-weight:500}
+.hero-tag span{font-family:var(--font-b);font-size:12px;color:rgba(255,255,255,.95);letter-spacing:.06em;font-weight:500}
 .hero-h1{
   font-family:var(--font-h);font-weight:800;line-height:1.0;
-  letter-spacing:-.03em;font-size:clamp(48px,8vw,100px);
-  color:white;margin-bottom:22px;
+  letter-spacing:-.03em;font-size:clamp(42px,7vw,90px);
+  color:white;margin-bottom:18px;
 }
 .hero-h1 span{color:#7DDDF5}
 .hero-sub{
-  font-family:var(--font-b);font-size:clamp(15px,1.5vw,18px);
-  color:rgba(255,255,255,.8);max-width:540px;line-height:1.7;
-  font-weight:300;margin-bottom:36px;
+  font-family:var(--font-b);font-size:clamp(14px,1.4vw,17px);
+  color:rgba(255,255,255,.85);max-width:520px;line-height:1.65;
+  font-weight:300;margin-bottom:28px;
 }
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:0}
 .btn-primary{
   background:var(--teal);color:white;padding:14px 32px;border-radius:30px;
   font-family:var(--font-h);font-size:14px;font-weight:700;
@@ -242,13 +251,12 @@ img{max-width:100%;display:block}
   text-decoration:none;border:1px solid rgba(255,255,255,.3);transition:all .2s;display:inline-block;
 }
 .btn-outline:hover{background:rgba(255,255,255,.22)}
-.hero-chips{display:flex;gap:10px;flex-wrap:wrap}
-.chip{
-  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
-  border-radius:20px;padding:6px 14px;
-  font-family:var(--font-b);font-size:12px;color:rgba(255,255,255,.85);font-weight:400;
-}
 .hero-wave{position:absolute;bottom:-1px;left:0;right:0;line-height:0;z-index:3}
+@media(max-width:600px){
+  .hero{padding:0 0 48px}
+  .hero-content{padding:0 5vw 0}
+  .hero-card{padding:22px 20px 26px;border-radius:18px}
+}
 
 /* ── SECTION BASE ── */
 .section{padding:80px 7vw}
@@ -889,20 +897,19 @@ const Hero = ({ t }) => (
     </div>
     <div className="hero-overlay"/>
     <div className="hero-content">
-      <h1 className="hero-h1 anim-1">
-        {t.hero.h1a}<br/><span>{t.hero.h1b}</span>
-      </h1>
-      <p className="hero-sub anim-2">{t.hero.sub}</p>
-      <div className="hero-tag anim-3" style={{marginBottom:32}}>
-        <div style={{width:7,height:7,borderRadius:'50%',background:'#7DDDF5'}}/>
-        <span>{t.hero.tag}</span>
-      </div>
-      <div className="hero-ctas anim-4">
-        <a href="#catamaran" className="btn-primary">{t.hero.cta1}</a>
-        <a href="#prix" className="btn-outline">{t.hero.cta2}</a>
-      </div>
-      <div className="hero-chips anim-4">
-        {t.hero.chips.map((c,i)=><div key={i} className="chip">{c}</div>)}
+      <div className="hero-card">
+        <h1 className="hero-h1 anim-1">
+          {t.hero.h1a}<br/><span>{t.hero.h1b}</span>
+        </h1>
+        <p className="hero-sub anim-2">{t.hero.sub}</p>
+        <div className="hero-tag anim-3">
+          <div style={{width:7,height:7,borderRadius:'50%',background:'#7DDDF5'}}/>
+          <span>{t.hero.tag}</span>
+        </div>
+        <div className="hero-ctas anim-4">
+          <a href="#catamaran" className="btn-primary">{t.hero.cta1}</a>
+          <a href="#prix" className="btn-outline">{t.hero.cta2}</a>
+        </div>
       </div>
     </div>
     <div className="hero-wave">
