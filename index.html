@@ -234,7 +234,8 @@ img{max-width:100%;display:block}
   color:rgba(255,255,255,.8);max-width:360px;line-height:1.6;
   font-weight:300;margin-bottom:36px;
 }
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px}
+.hero-bottom{display:flex;flex-direction:column}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
 .btn-primary{
   background:var(--teal);color:white;padding:14px 32px;border-radius:30px;
   font-family:var(--font-h);font-size:14px;font-weight:700;
@@ -251,17 +252,19 @@ img{max-width:100%;display:block}
 .hero-wave{position:absolute;bottom:-1px;left:0;right:0;line-height:0;z-index:3}
 @media(max-width:899px){
   .hero{justify-content:flex-start;padding:0}
-  .hero-content{display:flex;flex-direction:column;height:100vh;padding:22vh 5vw 40px}
-  .hero-h1{order:1;margin-bottom:0}
-  .hero-sub-card{order:2;margin-top:auto;margin-bottom:14px}
-  .hero-ctas{order:3;margin-bottom:0}
+  .hero-content{display:flex;flex-direction:column;height:100vh;padding:22vh 5vw 0}
+  .hero-h1{margin-bottom:0}
+  .hero-bottom{margin-top:auto;padding-bottom:40px}
+  .hero-sub-card{margin-bottom:14px}
+  .hero-ctas{margin-bottom:0}
 }
 @media(min-width:900px){
   .hero{justify-content:flex-start;padding:0}
-  .hero-content{display:flex;flex-direction:column;padding:18vh 7vw 60px;height:100vh;max-width:55%}
-  .hero-h1{order:1;margin-bottom:20px}
-  .hero-sub-card{order:2;margin-top:auto;margin-bottom:16px}
-  .hero-ctas{order:3;margin-bottom:40px}
+  .hero-content{display:block;padding:18vh 7vw 0;height:100vh;max-width:55%}
+  .hero-h1{margin-bottom:20px}
+  .hero-bottom{position:absolute;bottom:40px;left:7vw}
+  .hero-sub-card{margin-bottom:16px}
+  .hero-ctas{margin-bottom:0}
 }
 
 /* ── SECTION BASE ── */
@@ -907,15 +910,17 @@ const Hero = ({ t }) => (
       <h1 className="hero-h1 anim-1">
         {t.hero.h1a}<br/><span>{t.hero.h1b}</span>
       </h1>
-      <div className="hero-sub-card anim-2">
-        <p className="hero-sub" style={{marginBottom:0}}>{t.hero.sub}</p>
-      </div>
-      <div className="hero-tag anim-3">
-        <div style={{width:7,height:7,borderRadius:'50%',background:'#7DDDF5'}}/>
-        <span>{t.hero.tag}</span>
-      </div>
-      <div className="hero-ctas anim-4">
-        <a href="#catamaran" className="btn-primary">{t.hero.cta1}</a>
+      <div className="hero-bottom">
+        <div className="hero-sub-card anim-2">
+          <p className="hero-sub" style={{marginBottom:0}}>{t.hero.sub}</p>
+        </div>
+        <div className="hero-tag anim-3">
+          <div style={{width:7,height:7,borderRadius:'50%',background:'#7DDDF5'}}/>
+          <span>{t.hero.tag}</span>
+        </div>
+        <div className="hero-ctas anim-4">
+          <a href="#catamaran" className="btn-primary">{t.hero.cta1}</a>
+        </div>
       </div>
     </div>
     <div className="hero-wave">
